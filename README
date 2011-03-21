@@ -14,7 +14,9 @@ Example:
       
           can :show, User do
             cascade :index          #inherit the logged in and active rules from :index
-            rule("You may not view others' accounts if they are private.") {|user| !user.private? || user == User.current || User.current.admin?}
+            rule("You may not view others' accounts if they are private.") do |user| 
+              !user.private? || user == User.current || User.current.admin?
+            end
           end
       
           can :update, User do
@@ -27,7 +29,8 @@ Example:
           end
       
           can :create, UserInterest do
-            cascade :update, {|interest| interest.user} # You may create an interest if you have permission to update that user.
+            # You may create an interest if you have permission to update that user.
+            cascade :update, {|interest| interest.user} 
           end
         end
       end
