@@ -21,6 +21,18 @@ module ActionController
     def can?(*args, &block)
       CanDo.can?(*args, &block)
     end
+    
+    def require_permission!(*args)
+      reason = CanDo.reason(*args)
+      unless reason.nil?
+        Rails.logger.info "Permission Error: #{reason}"
+        deny_permission(reason, *args)
+      end
+    end
+    
+    def deny_permission(reason, *args)
+      raise CanDo::PermissionError.new(reason)
+    end
   end
 end
 
