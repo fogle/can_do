@@ -1,4 +1,5 @@
 require 'can_do/dsl'
+require 'can_do/permission_error'
 
 module CanDo
   def self.setup &block
