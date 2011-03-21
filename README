@@ -43,12 +43,13 @@ application.rb:
 
 users_controller.rb:
     def index
-      require_permission! :index, User #this will raise a CanDo::PermissionError if permission is denied
+      require_permission! :index, User  #this will raise a CanDo::PermissionError if permission is denied
       ...
     end
   
     def show
-      require_permission! :show, User #this will raise a CanDo::PermissionError if permission is denied
+      @user = User.find(params[:id])
+      require_permission! :show, user   #this will raise a CanDo::PermissionError if permission is denied
       ...
     end
   
